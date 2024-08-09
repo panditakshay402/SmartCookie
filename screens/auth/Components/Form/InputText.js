@@ -1,10 +1,26 @@
 import {View, Text, TextInput, StyleSheet} from 'react-native';
-import React from 'react';
+import React,{setValue} from 'react';
 
-const InputText = ({InputTextTitle}) => (
+const InputText = ({
+  InputTextTitle,
+  keyboardType,
+  autoComplete,
+  secureTextEntry = false,
+  value,
+  setValue,
+}) => (
   <View style={styles.container}>
     <Text style={styles.text}>{InputTextTitle}</Text>
-    <TextInput style={styles.textinput} placeholder= {InputTextTitle}/>
+    <TextInput
+      style={styles.textinput}
+      autoCorrect={false}
+      keyboardType={keyboardType}
+      autoComplete={autoComplete}
+      secureTextEntry={secureTextEntry}
+      value={value}
+      onChangeText={text => setValue(text)}
+      placeholder={InputTextTitle}
+    />
   </View>
 );
 

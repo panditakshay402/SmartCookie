@@ -1,23 +1,54 @@
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import InputText from './Components/Form/InputText';
-import CheckBoxComp from './Components/Form/CheckBox';
 import SubmitButton from './Components/SubmitButton';
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = () => {
+    setLoading(true);
+    try {
+      if (!email || !password) {
+        Alert.alert('Please fill all the fields');
+        setLoading(false);
+        return;
+      }
+      setLoading(false);
+      console.log('Login data ==>', {email, password});
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
   return (
     <View>
       <Text style={styles.title}>Login to your account.</Text>
 
       <Text style={styles.description}>Please sign in to your account </Text>
-      <InputText InputTextTitle={'Email Address'} />
-      <InputText InputTextTitle={'Password'} />
+      <InputText
+        InputTextTitle={'Email Address'}
+        keyboardType={'email-address'}
+        autoComplete={'email'}
+        value={email}
+        setValue={setEmail}
+      />
+      <InputText
+        InputTextTitle={'Password'}
+        secureTextEntry={true}
+        autoComplete={'password'}
+        value={password}
+        setValue={setPassword}
+      />
 
       <TouchableOpacity style={{alignItems: 'flex-end', margin: 10}}>
         <Text style={styles.textOC}>Forgot Password?</Text>
       </TouchableOpacity>
       <SubmitButton
-        handleSubmit={() => {}}
+        handleSubmit={handleSubmit}
         btnTitle={'Login'}
         loading={false}
       />

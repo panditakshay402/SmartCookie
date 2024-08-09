@@ -1,11 +1,14 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import InputText from './Components/Form/InputText';
 import CheckBoxComp from './Components/Form/CheckBox';
 import SubmitButton from './Components/SubmitButton';
 import {StyleSheet} from 'react-native';
 
 const Register = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   return (
     <View>
       <Text style={styles.title}>Create your new account.</Text>
@@ -13,17 +16,29 @@ const Register = () => {
       <Text style={styles.description}>
         Create an account to start looking for the food you like{' '}
       </Text>
-      <InputText InputTextTitle={'Email Address'} />
-      <InputText InputTextTitle={'User Name'} />
-      <InputText InputTextTitle={'Password'} />
+      <InputText
+        InputTextTitle={'Email Address'}
+        value={email}
+        setValue={setEmail}
+        autoCompleteType="email"
+        keyboardType="email-address"
+      />
+      <InputText InputTextTitle={'User Name'} value={name} setValue={setName} />
+      <InputText
+        InputTextTitle={'Password'}
+        value={password}
+        setValue={setPassword}
+        autoCompleteType="password"
+        secureTextEntry={true}
+      />
       <CheckBoxComp />
       <SubmitButton
         handleSubmit={() => {}}
         btnTitle={'Register'}
         loading={false}
       />
-      <View style={{alignItems: 'center',margin:5}}>
-        <Text style={styles.text}>..........   Or Sign in with   ..........</Text>
+      <View style={{alignItems: 'center', margin: 5}}>
+        <Text style={styles.text}>.......... Or Sign in with ..........</Text>
       </View>
       <View style={{alignItems: 'center'}}>
         <Image
@@ -37,6 +52,7 @@ const Register = () => {
           <Text style={styles.textOC}> Sign in</Text>
         </TouchableOpacity>
       </View>
+      <Text>{JSON.stringify({name, email, password}, null, 4)}</Text>
     </View>
   );
 };
@@ -53,7 +69,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     marginLeft: 15,
-    marginTop: "15%",
+    marginTop: '15%',
     color: '#000',
   },
   description: {
@@ -70,9 +86,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-text: {
-  color: '#000',
-},
+  text: {
+    color: '#000',
+  },
   textOC: {
     color: '#F9A602',
     textDecorationLine: 'underline',
