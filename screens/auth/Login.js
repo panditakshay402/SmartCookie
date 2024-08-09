@@ -1,13 +1,36 @@
-import {View, Text, StyleSheet, Image, TouchableOpacity, Alert} from 'react-native';
-import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import InputText from './Components/Form/InputText';
 import SubmitButton from './Components/SubmitButton';
 import auth from '@react-native-firebase/auth';
+import Home from '../Home';
 
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState();
+
+  console.log('user:-', user);
+
+  const onAuthStateSave = user => {
+    setUser(user);
+    if (user) {
+      navigation.navigate('Home');
+    }
+  };
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateSave);
+    return subscriber;
+  }, []);
 
   const handleSubmit = () => {
     setLoading(true);
@@ -80,10 +103,15 @@ const Login = ({navigation}) => {
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <Text style={styles.text}>Don't have an account?</Text>
         <TouchableOpacity style={styles.textOC}>
-          <Text style={styles.textOC} onPress={()=>navigation.navigate("Register")}> Register</Text>
+          <Text
+            style={styles.textOC}
+            onPress={() => navigation.navigate('Register')}>
+            {' '}
+            Register
+          </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </View>    
   );
 };
 
