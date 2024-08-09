@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "80656945832",
+    "project_id": "smartcookie-72762",
+    "storage_bucket": "smartcookie-72762.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80656945832:android:d3837e69914decdcb4a89d",
+        "android_client_info": {
+          "package_name": "com.smartcookie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY4CzTVsC068d_CG40FFh9P5G3WqAtakU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
