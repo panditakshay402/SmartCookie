@@ -47,7 +47,7 @@ const Login = ({navigation}) => {
       .signInWithEmailAndPassword(email, password)
       .then(response => {
         setLoading(false);
-        Alert.alert('User logged in');
+        // Alert.alert('User logged in');
         console.log('User data:', response);
       })
       .catch(error => {
