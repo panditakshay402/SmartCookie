@@ -6,8 +6,8 @@ import Login from './screens/auth/Login';
 const App = () => {
   return (
     <View>
-      <Login />
-      {/* <Register /> */}
+      {/* <Login /> */}
+      <Register />
     </View>
   );
 };

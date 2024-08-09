@@ -1,21 +1,44 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Alert} from 'react-native';
 import React, {useState} from 'react';
 import InputText from './Components/Form/InputText';
 import CheckBoxComp from './Components/Form/CheckBox';
 import SubmitButton from './Components/SubmitButton';
 import {StyleSheet} from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const handleRegister = () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Email and password are required');
+      return;
+    }
+
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(userCredential => {
+        Alert.alert('User account created');
+      })
+      .catch(error => {
+        if (error.code === 'auth/email-already-in-use') {
+          Alert.alert('Error', 'That email address is already in use!');
+        } else {
+          Alert.alert('Error', error.message);
+        }
+      });
+  };
+
   return (
     <View>
       <Text style={styles.title}>Create your new account.</Text>
 
       <Text style={styles.description}>
-        Create an account to start looking for the food you like{' '}
+        Create an account to start looking for the food you like
       </Text>
+
       <InputText
         InputTextTitle={'Email Address'}
         value={email}
@@ -23,7 +46,11 @@ const Register = () => {
         autoCompleteType="email"
         keyboardType="email-address"
       />
-      <InputText InputTextTitle={'User Name'} value={name} setValue={setName} />
+      <InputText
+        InputTextTitle={'User Name'}
+        value={name}
+        setValue={setName}
+      />
       <InputText
         InputTextTitle={'Password'}
         value={password}
@@ -33,7 +60,7 @@ const Register = () => {
       />
       <CheckBoxComp />
       <SubmitButton
-        handleSubmit={() => {}}
+        handleSubmit={handleRegister}
         btnTitle={'Register'}
         loading={false}
       />
@@ -78,14 +105,12 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     color: '#000',
   },
-
   image: {
     width: 40,
     height: 40,
     marginBottom: 10,
     justifyContent: 'center',
   },
-
   text: {
     color: '#000',
   },
