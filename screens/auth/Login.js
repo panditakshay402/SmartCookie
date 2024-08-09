@@ -4,7 +4,7 @@ import InputText from './Components/Form/InputText';
 import SubmitButton from './Components/SubmitButton';
 import auth from '@react-native-firebase/auth';
 
-const Login = () => {
+const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -80,7 +80,7 @@ const Login = () => {
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <Text style={styles.text}>Don't have an account?</Text>
         <TouchableOpacity style={styles.textOC}>
-          <Text style={styles.textOC}> Register</Text>
+          <Text style={styles.textOC} onPress={()=>navigation.navigate("Register")}> Register</Text>
         </TouchableOpacity>
       </View>
     </View>

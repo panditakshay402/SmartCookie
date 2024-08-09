@@ -6,7 +6,7 @@ import SubmitButton from './Components/SubmitButton';
 import {StyleSheet} from 'react-native';
 import auth from '@react-native-firebase/auth';
 
-const Register = () => {
+const Register = ({navigation}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,6 +21,8 @@ const Register = () => {
       .createUserWithEmailAndPassword(email, password)
       .then(userCredential => {
         Alert.alert('User account created');
+        // Navigate to Login screen after successful registration
+        navigation.navigate('Login');
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -76,10 +78,9 @@ const Register = () => {
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <Text style={styles.text}>Have an account?</Text>
         <TouchableOpacity style={styles.textOC}>
-          <Text style={styles.textOC}> Sign in</Text>
+          <Text style={styles.textOC} onPress={()=>navigation.navigate("Login")}> Sign in</Text>
         </TouchableOpacity>
       </View>
-      <Text>{JSON.stringify({name, email, password}, null, 4)}</Text>
     </View>
   );
 };
