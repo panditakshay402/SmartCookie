@@ -1,7 +1,8 @@
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity, Alert} from 'react-native';
 import React, {useState} from 'react';
 import InputText from './Components/Form/InputText';
 import SubmitButton from './Components/SubmitButton';
+import auth from '@react-native-firebase/auth';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -10,25 +11,40 @@ const Login = () => {
 
   const handleSubmit = () => {
     setLoading(true);
-    try {
-      if (!email || !password) {
-        Alert.alert('Please fill all the fields');
-        setLoading(false);
-        return;
-      }
+
+    // Validate email and password
+    if (!email || !password) {
+      Alert.alert('Please fill all the fields');
       setLoading(false);
-      console.log('Login data ==>', {email, password});
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
+      return;
     }
+
+    // Firebase authentication
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(response => {
+        setLoading(false);
+        Alert.alert('User logged in');
+        console.log('User data:', response);
+      })
+      .catch(error => {
+        setLoading(false);
+        if (error.code === 'auth/user-not-found') {
+          Alert.alert('User not found');
+        } else if (error.code === 'auth/wrong-password') {
+          Alert.alert('Incorrect password');
+        } else {
+          Alert.alert('Login failed', error.message);
+        }
+        console.log(error);
+      });
   };
 
   return (
     <View>
       <Text style={styles.title}>Login to your account.</Text>
 
-      <Text style={styles.description}>Please sign in to your account </Text>
+      <Text style={styles.description}>Please sign in to your account</Text>
       <InputText
         InputTextTitle={'Email Address'}
         keyboardType={'email-address'}
@@ -50,7 +66,7 @@ const Login = () => {
       <SubmitButton
         handleSubmit={handleSubmit}
         btnTitle={'Login'}
-        loading={false}
+        loading={loading}
       />
       <View style={{alignItems: 'center', margin: 10}}>
         <Text style={styles.text}>.......... Or Sign in with ..........</Text>
@@ -62,7 +78,7 @@ const Login = () => {
         />
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <Text style={styles.text}> Don't have an account?</Text>
+        <Text style={styles.text}>Don't have an account?</Text>
         <TouchableOpacity style={styles.textOC}>
           <Text style={styles.textOC}> Register</Text>
         </TouchableOpacity>
