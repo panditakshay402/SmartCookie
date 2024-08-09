@@ -22,14 +22,21 @@ const Register = () => {
         btnTitle={'Register'}
         loading={false}
       />
-      <Text style={styles.description}>
-        .......... or Sign in with ..........
-      </Text>
-      <Image
-        style={styles.image}
-        source={require('../../assets/images/google.png')}
-      />
-      <Text>Have an account?<TouchableOpacity/> Sign in</Text>
+      <View style={{alignItems: 'center',margin:5}}>
+        <Text style={styles.text}>..........   Or Sign in with   ..........</Text>
+      </View>
+      <View style={{alignItems: 'center'}}>
+        <Image
+          style={styles.image}
+          source={require('../../assets/images/google.png')}
+        />
+      </View>
+      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+        <Text style={styles.text}>Have an account?</Text>
+        <TouchableOpacity style={styles.textOC}>
+          <Text style={styles.textOC}> Sign in</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -42,18 +49,34 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 20,
+    fontSize: 40,
     fontWeight: 'bold',
     marginBottom: 10,
+    marginLeft: 15,
+    marginTop: "15%",
+    color: '#000',
   },
   description: {
-    fontSize: 16,
-    marginBottom: 20,
+    fontSize: 18,
+    marginBottom: 28,
+    marginLeft: 15,
+    color: '#000',
   },
+
   image: {
-    width: 100,
-    height: 100,
-    marginBottom: 20,
+    width: 40,
+    height: 40,
+    marginBottom: 10,
+    justifyContent: 'center',
+  },
+
+text: {
+  color: '#000',
+},
+  textOC: {
+    color: '#F9A602',
+    textDecorationLine: 'underline',
+    fontWeight: 'bold',
   },
 });
 
