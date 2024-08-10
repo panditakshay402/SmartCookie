@@ -11,14 +11,43 @@ import InputText from './Components/Form/InputText';
 import SubmitButton from './Components/SubmitButton';
 import auth from '@react-native-firebase/auth';
 import Home from '../Home';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { WEBCLIENTID } from '../../Constant/constant';
 
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState();
+  const [userInfo, setUserInfo] = useState(null);
 
   console.log('user:-', user);
+
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId:WEBCLIENTID  
+    });
+  }, []);
+
+    const signIn = async () => {  
+      try {  
+        await GoogleSignin.hasPlayServices();  
+        const userInfo = await GoogleSignin.signIn();  
+        console.log('User Info :-', userInfo);  
+      } catch (error) { 
+        console.log('Message', error.message);  
+        if (error.code === statusCodes.SIGN_IN_CANCELLED) {  
+          console.log('User Cancelled the Login Flow');  
+        } else if (error.code === statusCodes.IN_PROGRESS) {  
+          console.log('Signing In');  
+        } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {  
+          console.log('Play Services Not Available or Outdated');  
+        } else {  
+          console.log('Some Other Error Happened');  
+        }  
+      }
+    };
+
 
   const onAuthStateSave = user => {
     setUser(user);
@@ -49,6 +78,9 @@ const Login = ({navigation}) => {
         setLoading(false);
         // Alert.alert('User logged in');
         console.log('User data:', response);
+        if (user) {
+          navigation.navigate('Home');
+        }
       })
       .catch(error => {
         setLoading(false);
@@ -95,10 +127,12 @@ const Login = ({navigation}) => {
         <Text style={styles.text}>.......... Or Sign in with ..........</Text>
       </View>
       <View style={{alignItems: 'center'}}>
-        <Image
-          style={styles.image}
-          source={require('../../assets/images/google.png')}
-        />
+      <TouchableOpacity onPress={signIn}>
+          <Image
+            style={styles.image}
+            source={require('../../assets/images/google.png')}
+          />
+        </TouchableOpacity>
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <Text style={styles.text}>Don't have an account?</Text>
@@ -106,14 +140,15 @@ const Login = ({navigation}) => {
           <Text
             style={styles.textOC}
             onPress={() => navigation.navigate('Register')}>
-            {' '}
+            
             Register
           </Text>
         </TouchableOpacity>
       </View>
     </View>    
   );
-};
+}
+
 
 const styles = StyleSheet.create({
   container: {

@@ -1,6 +1,7 @@
 import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import React from 'react';
 import auth from '@react-native-firebase/auth';
+import Slider from './Slider';
 
 const Home = ({navigation}) => {
   const onLogout = () => {
@@ -17,10 +18,10 @@ const Home = ({navigation}) => {
 
   return (
     <View>
-      <Text>Home</Text>
       <TouchableOpacity onPress={onLogout}>
         <Text>Logout</Text>
       </TouchableOpacity>
+      <Slider />
     </View>
   );
 };
