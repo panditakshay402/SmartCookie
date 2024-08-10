@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -6,13 +6,15 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-const { height, width } = Dimensions.get('window');
+const {height, width} = Dimensions.get('window');
+
 
 export default function Slider() {
   const [currentIndex, setCurrentIndex] = useState(0); // Track the current card index
   const [showCards, setShowCards] = useState(true); // Control visibility of the slider
-  
+
   // Array of text for each card
   const cardTexts1 = [
     'Welcome to our service!',
@@ -48,7 +50,7 @@ export default function Slider() {
           <View style={styles.card}>
             <View>
               <Text style={styles.cardText1}>{cardTexts1[currentIndex]}</Text>
-              <Text style={styles.cardText2}>{cardTexts2[currentIndex]}</Text>  
+              <Text style={styles.cardText2}>{cardTexts2[currentIndex]}</Text>
             </View>
 
             {/* Buttons on the card */}
@@ -57,7 +59,13 @@ export default function Slider() {
                 <Text style={styles.buttonText}>Skip</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={handleNext} style={styles.nextButton}>
-                <Text style={styles.buttonText}>Next --></Text>
+                <Text style={styles.buttonText}>
+                  Next 
+                  <FontAwesome5
+                    name="long-arrow-alt-right"
+                    style={styles.iconstyle}
+                  />
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -78,6 +86,10 @@ export default function Slider() {
 }
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover', // or 'stretch' if you want to stretch the image to fit the screen
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -92,27 +104,18 @@ const styles = StyleSheet.create({
   card: {
     width: width - 79,
     height: height / 2 - 70,
-    backgroundColor: 'orange',
+    backgroundColor: '#FF7417',
     borderRadius: 75,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: -20,
   },
-  cardView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
   cardText1: {
     color: 'white',
     fontSize: 48,
-    // fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 50, // Push text to the top
   },
-
-  
   cardText2: {
     color: 'white',
     fontSize: 18,
@@ -130,6 +133,11 @@ const styles = StyleSheet.create({
   nextButton: {
     paddingVertical: 10,
     paddingHorizontal: 20,
+  },
+  iconstyle: {
+    fontSize: 16,
+    color: 'white',
+    
   },
   skipButton: {
     paddingVertical: 10,
