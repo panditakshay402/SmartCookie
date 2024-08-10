@@ -9,7 +9,6 @@ const Home = ({navigation}) => {
     auth()
       .signOut()
       .then(() => {
-        // Alert.alert('User signed out');
         navigation.navigate('Login');
       })
       .catch(error => {
@@ -19,11 +18,11 @@ const Home = ({navigation}) => {
 
   return (
     <ImageBackground
-      source={three} // Replace with your image path
+      source={three}
       style={styles.background}>
     <View>
-      <TouchableOpacity onPress={onLogout}>
-        <Text>Logout</Text>
+      <TouchableOpacity onPress={onLogout} style={styles.onLogout}>
+        <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>
       <Slider />
     </View>
@@ -34,7 +33,26 @@ const Home = ({navigation}) => {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    resizeMode: 'cover', // or 'stretch' if you want to stretch the image to fit the screen
+    resizeMode: 'cover',
+  },
+  onLogout: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    backgroundColor: 'orange',
+    position: 'absolute',
+    borderRadius: 15,
+    padding: 3,
+    width: 80,
+    justifyContent: 'center',
+    margin: 10,
+    marginLeft: "79%",
+  },
+  logoutText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+   
+
   },
 });
 

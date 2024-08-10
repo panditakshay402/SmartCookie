@@ -10,12 +10,10 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const {height, width} = Dimensions.get('window');
 
-
 export default function Slider() {
-  const [currentIndex, setCurrentIndex] = useState(0); // Track the current card index
-  const [showCards, setShowCards] = useState(true); // Control visibility of the slider
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [showCards, setShowCards] = useState(true);
 
-  // Array of text for each card
   const cardTexts1 = [
     'Welcome to our service!',
     'We serve incredible delicacies.',
@@ -27,40 +25,35 @@ export default function Slider() {
     'Stay updated with our news!',
   ];
 
-  // Function to handle "Next" button press
   const handleNext = () => {
     if (currentIndex < cardTexts1.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      setCurrentIndex(0); // Reset to the first card after the last one
+      setCurrentIndex(0);
     }
   };
 
-  // Function to handle "Skip" button press
   const handleSkip = () => {
-    setShowCards(false); // Hide the slider and dots
+    setShowCards(false);
   };
 
-  // Render the slider only if it's not skipped
   return (
     <View style={styles.container}>
       {showCards && (
         <View style={styles.sliderContainer}>
-          {/* Card */}
           <View style={styles.card}>
             <View>
               <Text style={styles.cardText1}>{cardTexts1[currentIndex]}</Text>
               <Text style={styles.cardText2}>{cardTexts2[currentIndex]}</Text>
             </View>
 
-            {/* Buttons on the card */}
             <View style={styles.buttonContainer}>
               <TouchableOpacity onPress={handleSkip} style={styles.skipButton}>
                 <Text style={styles.buttonText}>Skip</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={handleNext} style={styles.nextButton}>
                 <Text style={styles.buttonText}>
-                  Next 
+                  Next
                   <FontAwesome5
                     name="long-arrow-alt-right"
                     style={styles.iconstyle}
@@ -70,7 +63,6 @@ export default function Slider() {
             </View>
           </View>
 
-          {/* Dots Indicator */}
           <View style={styles.dotsContainer}>
             {cardTexts1.map((_, index) => (
               <View
@@ -88,7 +80,7 @@ export default function Slider() {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    resizeMode: 'cover', // or 'stretch' if you want to stretch the image to fit the screen
+    resizeMode: 'cover',
   },
   container: {
     flex: 1,
@@ -114,13 +106,13 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 48,
     textAlign: 'center',
-    marginBottom: 50, // Push text to the top
+    marginBottom: 50,
   },
   cardText2: {
     color: 'white',
     fontSize: 18,
     textAlign: 'center',
-    marginBottom: 90, // Push text to the top
+    marginBottom: 90,
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -128,7 +120,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 20,
     position: 'absolute',
-    bottom: 20, // Position buttons at the bottom of the card
+    bottom: 20,
   },
   nextButton: {
     paddingVertical: 10,
@@ -137,7 +129,6 @@ const styles = StyleSheet.create({
   iconstyle: {
     fontSize: 16,
     color: 'white',
-    
   },
   skipButton: {
     paddingVertical: 10,
@@ -148,8 +139,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   dotsContainer: {
-    position: 'absolute', // Make the dots container position absolute
-    bottom: 160, // Position it 60 pixels above the bottom of the card
+    position: 'absolute',
+    bottom: 160,
     flexDirection: 'row',
   },
   dot: {
