@@ -1,3 +1,21 @@
+<img src="https://github.com/user-attachments/assets/c13b2737-c4c8-49cc-a3dc-3bb6019cca00" width="300"/>
+<img src="https://github.com/user-attachments/assets/781829cf-80f1-41a8-bd02-25ce87f2a81c" width="300"/>
+<img src="https://github.com/user-attachments/assets/bd875113-409f-4e08-982a-ae4b480b2483" width="300"/>
+<img src="https://github.com/user-attachments/assets/c7882348-8295-4e39-ae28-1aef28de81d7" width="300"/>
+<img src="https://github.com/user-attachments/assets/1a8c6621-8bc5-4fb2-83d0-3b01b4c5f532" width="300"/>
+<img src="https://github.com/user-attachments/assets/3bf9c383-a434-4c7f-b332-742daa670c9e" width="300"/>
+<img src="https://github.com/user-attachments/assets/5065a9e2-d53d-4bfc-b1c0-e92866a36e32" width="300"/>
+<img src="https://github.com/user-attachments/assets/d4c961f2-2b5f-4b41-91d9-acda8d68ed43" width="300"/>
+<video width="100" height="500">
+  <source src="https://github.com/user-attachments/assets/bdde8986-0857-45ed-8faa-3b65219ba33a" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+
+
+
+https://github.com/user-attachments/assets/bdde8986-0857-45ed-8faa-3b65219ba33a.{width="300"}
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
