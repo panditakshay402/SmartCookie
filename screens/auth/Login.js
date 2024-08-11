@@ -11,8 +11,8 @@ import InputText from './Components/Form/InputText';
 import SubmitButton from './Components/SubmitButton';
 import auth from '@react-native-firebase/auth';
 import Home from '../Home';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { WEBCLIENTID } from '../../Constant/constant';
+import {GoogleSignin, statusCodes} from '@react-native-google-signin/google-signin';
+import {WEBCLIENTID} from '../../Constant/constant';
 
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -25,29 +25,44 @@ const Login = ({navigation}) => {
 
   useEffect(() => {
     GoogleSignin.configure({
-      webClientId:WEBCLIENTID  
+      webClientId: WEBCLIENTID,
     });
   }, []);
 
-    const signIn = async () => {  
-      try {  
-        await GoogleSignin.hasPlayServices();  
-        const userInfo = await GoogleSignin.signIn();  
-        console.log('User Info :-', userInfo);  
-      } catch (error) { 
-        console.log('Message', error.message);  
-        if (error.code === statusCodes.SIGN_IN_CANCELLED) {  
-          console.log('User Cancelled the Login Flow');  
-        } else if (error.code === statusCodes.IN_PROGRESS) {  
-          console.log('Signing In');  
-        } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {  
-          console.log('Play Services Not Available or Outdated');  
-        } else {  
-          console.log('Some Other Error Happened');  
-        }  
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log('User Info :-', userInfo);
+    } catch (error) {
+      console.log('Message', error.message);
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        console.log('User Cancelled the Login Flow');
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        console.log('Signing In');
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        console.log('Play Services Not Available or Outdated');
+      } else {
+        console.log('Some Other Error Happened');
       }
-    };
+    }
+  };
 
+  const resetPassword = async () => {
+    if (email) {
+      auth()
+        .sendPasswordResetEmail(email)
+        .then(() => {
+          Alert.alert('Password reset email sent!');
+        })
+        .catch(error => {
+          const errorMessage = error.message;
+          Alert.alert('Error:', errorMessage);
+        });
+    } else {
+      Alert.alert('Please enter email address');
+    }
+  };
 
   const onAuthStateSave = user => {
     setUser(user);
@@ -64,23 +79,18 @@ const Login = ({navigation}) => {
   const handleSubmit = () => {
     setLoading(true);
 
-    // Validate email and password
     if (!email || !password) {
       Alert.alert('Please fill all the fields');
       setLoading(false);
       return;
     }
 
-    // Firebase authentication
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(response => {
         setLoading(false);
-        // Alert.alert('User logged in');
         console.log('User data:', response);
-        if (user) {
-          navigation.navigate('Home');
-        }
+        navigation.navigate('Home');
       })
       .catch(error => {
         setLoading(false);
@@ -115,7 +125,9 @@ const Login = ({navigation}) => {
         setValue={setPassword}
       />
 
-      <TouchableOpacity style={{alignItems: 'flex-end', margin: 10}}>
+      <TouchableOpacity
+        style={{alignItems: 'flex-end', margin: 10}}
+        onPress={resetPassword}>
         <Text style={styles.textOC}>Forgot Password?</Text>
       </TouchableOpacity>
       <SubmitButton
@@ -127,7 +139,7 @@ const Login = ({navigation}) => {
         <Text style={styles.text}>.......... Or Sign in with ..........</Text>
       </View>
       <View style={{alignItems: 'center'}}>
-      <TouchableOpacity onPress={signIn}>
+        <TouchableOpacity onPress={signIn}>
           <Image
             style={styles.image}
             source={require('../../assets/images/google.png')}
@@ -140,15 +152,13 @@ const Login = ({navigation}) => {
           <Text
             style={styles.textOC}
             onPress={() => navigation.navigate('Register')}>
-            
             Register
           </Text>
         </TouchableOpacity>
       </View>
-    </View>    
+    </View>
   );
-}
-
+};
 
 const styles = StyleSheet.create({
   container: {

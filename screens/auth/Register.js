@@ -10,10 +10,24 @@ const Register = ({navigation}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isSelected, setSelection] = useState(false);
 
   const handleRegister = () => {
-    if (!email || !password) {
-      Alert.alert('Error', 'Email and password are required');
+    if (!email || !password || !name) {
+      Alert.alert('Error', 'All details are required');
+      return;
+    } else if (password.length < 6) {
+      Alert.alert('Error', 'Password must be at least 6 characters');
+      return;
+    } else if (
+      !email.includes('@') ||
+      !email.includes('.') ||
+      !email.includes('com')
+    ) {
+      Alert.alert('Error', 'Email is not valid');
+      return;
+    } else if (!isSelected) {
+      Alert.alert('Error', 'Please agree to the terms and conditions');
       return;
     }
 
@@ -21,7 +35,6 @@ const Register = ({navigation}) => {
       .createUserWithEmailAndPassword(email, password)
       .then(userCredential => {
         Alert.alert('User account created');
-        // Navigate to Login screen after successful registration
         navigation.navigate('Login');
       })
       .catch(error => {
@@ -48,11 +61,7 @@ const Register = ({navigation}) => {
         autoCompleteType="email"
         keyboardType="email-address"
       />
-      <InputText
-        InputTextTitle={'User Name'}
-        value={name}
-        setValue={setName}
-      />
+      <InputText InputTextTitle={'User Name'} value={name} setValue={setName} />
       <InputText
         InputTextTitle={'Password'}
         value={password}
@@ -60,7 +69,7 @@ const Register = ({navigation}) => {
         autoCompleteType="password"
         secureTextEntry={true}
       />
-      <CheckBoxComp />
+      <CheckBoxComp isSelected={isSelected} setSelection={setSelection} />
       <SubmitButton
         handleSubmit={handleRegister}
         btnTitle={'Register'}
@@ -78,7 +87,12 @@ const Register = ({navigation}) => {
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         <Text style={styles.text}>Have an account?</Text>
         <TouchableOpacity style={styles.textOC}>
-          <Text style={styles.textOC} onPress={()=>navigation.navigate("Login")}> Sign in</Text>
+          <Text
+            style={styles.textOC}
+            onPress={() => navigation.navigate('Login')}>
+            {' '}
+            Sign in
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

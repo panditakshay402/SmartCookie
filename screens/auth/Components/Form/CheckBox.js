@@ -2,8 +2,8 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import React, {useState} from 'react';
 
-const CheckBoxComp = () => {
-  const [isSelected, setSelection] = useState(false);
+const CheckBoxComp = ({isSelected, setSelection}) => {
+  // const [isSelected, setSelection] = {useState(false);}
   return (
     <View style={{flexDirection: 'row', alignItems: 'center'}}>
       <CheckBox
