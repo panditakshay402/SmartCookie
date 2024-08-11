@@ -26,7 +26,7 @@ const InputText = ({
 
 const styles = StyleSheet.create({
   container: {
-    margin: 12,
+    margin: 8,
   },
 
   text: {
@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     padding: 10,
-    marginTop: 9,
+    marginTop: 5,
+    color: 'black',
   },
 });
 

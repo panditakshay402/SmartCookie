@@ -57,7 +57,7 @@ const Login = ({navigation}) => {
         })
         .catch(error => {
           const errorMessage = error.message;
-          Alert.alert('Error:', errorMessage);
+          console.log('Error:', errorMessage);
         });
     } else {
       Alert.alert('Please enter email address');
@@ -99,7 +99,7 @@ const Login = ({navigation}) => {
         } else if (error.code === 'auth/wrong-password') {
           Alert.alert('Incorrect password');
         } else {
-          Alert.alert('Login failed', error.message);
+          console.log('Login failed', error.message);
         }
         console.log(error);
       });
@@ -147,12 +147,12 @@ const Login = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        <Text style={styles.text}>Don't have an account?</Text>
+        <Text style={styles.text}>Don't have an account? </Text>
         <TouchableOpacity style={styles.textOC}>
           <Text
             style={styles.textOC}
             onPress={() => navigation.navigate('Register')}>
-            Register
+             Register
           </Text>
         </TouchableOpacity>
       </View>

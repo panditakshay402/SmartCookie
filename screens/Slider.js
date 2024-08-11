@@ -104,9 +104,11 @@ const styles = StyleSheet.create({
   },
   cardText1: {
     color: 'white',
-    fontSize: 48,
+    fontSize: 40,
     textAlign: 'center',
-    marginBottom: 50,
+    marginBottom: 10,
+    marginLeft: 10,
+    marginRight: 10,
   },
   cardText2: {
     color: 'white',
@@ -144,15 +146,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   dot: {
-    width: 35,
-    height: 6,
+    width: 30,
+    height: 5,
     borderRadius: 5,
     backgroundColor: 'grey',
     margin: 3,
   },
   activeDot: {
-    width: 40,
-    height: 6,
+    width: 35,
+    height: 5,
     borderRadius: 5,
     margin: 3,
     backgroundColor: 'white',

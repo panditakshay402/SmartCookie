@@ -43,7 +43,7 @@ const Register = ({navigation}) => {
         if (error.code === 'auth/email-already-in-use') {
           Alert.alert('Error', 'That email address is already in use!');
         } else {
-          Alert.alert('Error', error.message);
+          console.log('Error', error.message);
         }
       });
   };
@@ -81,6 +81,7 @@ const Register = ({navigation}) => {
         handleSubmit={handleRegister}
         btnTitle={'Register'}
         loading={false}
+        style={styles.button}
       />
       <View style={{alignItems: 'center', margin: 5}}>
         <Text style={styles.text}>.......... Or Sign in with ..........</Text>
@@ -135,12 +136,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     marginLeft: 15,
-    marginTop: '15%',
+    marginTop: '10%',
     color: '#000',
   },
   description: {
     fontSize: 18,
-    marginBottom: 28,
+    marginBottom: 22,
     marginLeft: 15,
     color: '#000',
   },

@@ -45,11 +45,11 @@ const styles = StyleSheet.create({
     width: 80,
     justifyContent: 'center',
     margin: 10,
-    marginLeft: "79%",
+    marginLeft: "75%",
   },
   logoutText: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
    
 

@@ -29,12 +29,12 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#000',
-    fontSize: 15,
+    fontSize: 13,
   },
   textOC: {
     color: '#F9A602',
-    textDecorationLine: 'underline',
-    fontSize: 14,
+    // textDecorationLine: 'underline',
+    fontSize: 13,
     fontWeight: 'bold',
   },
 });
