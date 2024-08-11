@@ -1,9 +1,8 @@
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
-import React, {useState} from 'react';
+import React from 'react';
 
-const CheckBoxComp = ({isSelected, setSelection}) => {
-  // const [isSelected, setSelection] = {useState(false);}
+const CheckBoxComp = ({isSelected, setSelection, showModal}) => {
   return (
     <View style={{flexDirection: 'row', alignItems: 'center'}}>
       <CheckBox
@@ -12,12 +11,12 @@ const CheckBoxComp = ({isSelected, setSelection}) => {
         style={{marginRight: 2}}
       />
       <Text style={styles.text}>I Agree with</Text>
-      <TouchableOpacity>
-        <Text style={styles.textOC}>  Terms and Conditions</Text>
+      <TouchableOpacity onPress={() => showModal("Terms and Conditions content goes here.")}>
+        <Text style={styles.textOC}> Terms and Conditions</Text>
       </TouchableOpacity>
       <Text style={styles.text}> and</Text>
-      <TouchableOpacity>
-        <Text style={styles.textOC}>  Privacy Policy</Text> 
+      <TouchableOpacity onPress={() => showModal("Privacy Policy content goes here.")}>
+        <Text style={styles.textOC}> Privacy Policy</Text> 
       </TouchableOpacity>
     </View>
   );
@@ -37,7 +36,6 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     fontSize: 14,
     fontWeight: 'bold',
-
   },
 });
 

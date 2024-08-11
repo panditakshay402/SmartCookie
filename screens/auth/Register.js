@@ -1,4 +1,4 @@
-import {View, Text, Image, TouchableOpacity, Alert} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Alert, Modal, ScrollView} from 'react-native';
 import React, {useState} from 'react';
 import InputText from './Components/Form/InputText';
 import CheckBoxComp from './Components/Form/CheckBox';
@@ -11,6 +11,8 @@ const Register = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSelected, setSelection] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalContent, setModalContent] = useState('');
 
   const handleRegister = () => {
     if (!email || !password || !name) {
@@ -46,6 +48,11 @@ const Register = ({navigation}) => {
       });
   };
 
+  const showModal = (content) => {
+    setModalContent(content);
+    setModalVisible(true);
+  };
+
   return (
     <View>
       <Text style={styles.title}>Create your new account.</Text>
@@ -69,7 +76,7 @@ const Register = ({navigation}) => {
         autoCompleteType="password"
         secureTextEntry={true}
       />
-      <CheckBoxComp isSelected={isSelected} setSelection={setSelection} />
+      <CheckBoxComp isSelected={isSelected} setSelection={setSelection} showModal={showModal} />
       <SubmitButton
         handleSubmit={handleRegister}
         btnTitle={'Register'}
@@ -95,6 +102,23 @@ const Register = ({navigation}) => {
           </Text>
         </TouchableOpacity>
       </View>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}>
+        <View style={styles.modalView}>
+          <ScrollView style={styles.modalScroll}>
+            <Text style={styles.modalText}>{modalContent}</Text>
+          </ScrollView>
+          <TouchableOpacity
+            style={styles.modalCloseButton}
+            onPress={() => setModalVisible(false)}>
+            <Text style={styles.modalCloseText}>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -132,6 +156,31 @@ const styles = StyleSheet.create({
   textOC: {
     color: '#F9A602',
     textDecorationLine: 'underline',
+    fontWeight: 'bold',
+  },
+  modalView: {
+    flex: 1,
+    backgroundColor: 'white',
+    margin: 20,
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalScroll: {
+    marginBottom: 20,
+  },
+  modalText: {
+    fontSize: 16,
+    color: '#000',
+  },
+  modalCloseButton: {
+    backgroundColor: '#F9A602',
+    padding: 10,
+    borderRadius: 10,
+  },
+  modalCloseText: {
+    color: '#fff',
     fontWeight: 'bold',
   },
 });
